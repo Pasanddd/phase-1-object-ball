@@ -1,4 +1,4 @@
-// 1. numPointsScored(playerName)
+// showing scores for a player
 function numPointsScored(playerName) {
     let game = gameObject();
     for (let teamKey in game) {
@@ -12,7 +12,7 @@ function numPointsScored(playerName) {
     return "Player not found";
   }
   
-  // 2. shoeSize(playerName)
+//showing shoe size of a player
   function shoeSize(playerName) {
     let game = gameObject();
     for (let teamKey in game) {
@@ -26,7 +26,7 @@ function numPointsScored(playerName) {
     return "Player not found";
   }
   
-  // 3. teamColors(teamName)
+// showing the color of the team's shirts
   function teamColors(teamName) {
     let game = gameObject();
     if (game.home.teamName === teamName) {
@@ -38,13 +38,13 @@ function numPointsScored(playerName) {
     }
   }
   
-  // 4. teamNames()
+// showing the team names
   function teamNames() {
     let game = gameObject();
     return [game.home.teamName, game.away.teamName];
   }
   
-  // 5. playerNumbers(teamName)
+ //showing the player's name
   function playerNumbers(teamName) {
     let game = gameObject();
     let numbers = [];
@@ -55,7 +55,7 @@ function numPointsScored(playerName) {
     return numbers;
   }
   
-  // 6. playerStats(playerName)
+//showin the player's state
   function playerStats(playerName) {
     let game = gameObject();
     for (let teamKey in game) {
@@ -69,7 +69,7 @@ function numPointsScored(playerName) {
     return "Player not found";
   }
   
-  // 7. bigShoeRebounds()
+//showing the biggest shoe size of a player
   function bigShoeRebounds() {
     let game = gameObject();
     let maxShoeSize = -Infinity;
@@ -84,5 +84,94 @@ function numPointsScored(playerName) {
       }
     }
     return rebounds;
+  }
+//showing the most recorded scores
+  function mostPointsScored() {
+    let game = gameObject();
+    let maxPoints = -Infinity;
+    let playerWithMostPoints = "";
+    for (let teamKey in game) {
+      let team = game[teamKey];
+      for (let player in team.players) {
+        if (team.players[player].points > maxPoints) {
+          maxPoints = team.players[player].points;
+          playerWithMostPoints = player;
+        }
+      }
+    }
+    return playerWithMostPoints;
+  }
+  //showing the winner team
+  function winningTeam() {
+    let game = gameObject();
+    let homePoints = 0;
+    let awayPoints = 0;
+    for (let player in game.home.players) {
+      homePoints += game.home.players[player].points;
+    }
+    for (let player in game.away.players) {
+      awayPoints += game.away.players[player].points;
+    }
+    if (homePoints > awayPoints) {
+      return game.home.teamName;
+    } else if (awayPoints > homePoints) {
+      return game.away.teamName;
+    } else {
+      return "Tie";
+    }
+  }
+//showing the player which has the longest name 
+  function playerWithLongestName() {
+    let game = gameObject();
+    let longestName = "";
+    for (let teamKey in game) {
+      let team = game[teamKey];
+      for (let player in team.players) {
+        if (player.length > longestName.length) {
+          longestName = player;
+        }
+      }
+    }
+    return longestName;
+  }
+
+//showing the player with the longest name had the most steals
+  function doesLongNameStealATon() {
+    let game = gameObject();
+    let longestName = "";
+    for (let teamKey in game) {
+      let team = game[teamKey];
+      for (let player in team.players) {
+        if (player.length > longestName.length) {
+          longestName = player;
+        }
+      }
+    }
+    
+   
+    let stealsOfLongestName = 0;
+    for (let teamKey in game) {
+      let team = game[teamKey];
+      for (let player in team.players) {
+        if (player === longestName) {
+          stealsOfLongestName = team.players[player].steals;
+          break;
+        }
+      }
+    }
+    
+    
+    let maxSteals = -Infinity;
+    for (let teamKey in game) {
+      let team = game[teamKey];
+      for (let player in team.players) {
+        if (team.players[player].steals > maxSteals) {
+          maxSteals = team.players[player].steals;
+        }
+      }
+    }
+    
+    
+    return stealsOfLongestName === maxSteals;
   }
   
